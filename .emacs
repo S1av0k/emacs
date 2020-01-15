@@ -61,7 +61,6 @@
 (menu-bar-mode     -1) ;; отключаем графическое меню
 (tool-bar-mode     -1) ;; отключаем tool-bar
 (scroll-bar-mode   -1) ;; отключаем полосу прокрутки
-(blink-cursor-mode -1) ;; курсор не мигает
 (setq use-dialog-box     nil) ;; никаких графических диалогов и окон - все через минибуфер
 (setq redisplay-dont-pause t)  ;; лучшая отрисовка буфера
 (setq ring-bell-function 'ignore) ;; отключить звуковой сигнал
