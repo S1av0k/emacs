@@ -49,9 +49,9 @@
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (package-initialize))
 
-;; My name and e-mail adress
+;; My name and e-mail address
 (setq user-full-name   "Vyacheslav Beketnov")
-(setq user-mail-adress "beketnov.vm@gmail.com")
+(setq user-mail-address "beketnov.vm@gmail.com")
 
 ;; Inhibit startup/splash screen
 (setq inhibit-splash-screen   t)
