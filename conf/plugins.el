@@ -5,12 +5,19 @@
 		   js2-refactor		;; https://github.com/magnars/js2-refactor.el
 		   xref-js2
 		   rainbow-mode         ;; Colorize color names in buffers
+		   web-mode
+		   auto-complete
 		   )
 	)
- (unless (package-installed-p package)
-   (package-install package))
- (require package))
-
+  (unless (package-installed-p package)
+    ;; try to install again if error
+   (unless (ignore-errors (package-install package))
+     (package-refresh-contents)
+     (package-install package)
+   )
+ )
+ (require package)
+ )
 
 ;; Linum plugin
 (require 'linum) ;; вызвать Linum
@@ -27,26 +34,13 @@
 (setq ido-vitrual-buffers      t)
 (setq ido-enable-flex-matching t)
 
-; highlight parentheses when the cursor is next to them
+;; Highlight parentheses when the cursor is next to them
 (require 'paren)
 (show-paren-mode t)
 
+(require 'auto-complete)
+(global-auto-complete-mode t)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(custom-enabled-themes (quote (misterioso)))
- '(package-selected-packages (quote (json-mode sr-speedbar))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-)
 ;; SrSpeedbar
 (require 'sr-speedbar)
 (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)
@@ -76,3 +70,17 @@
 
 (add-hook 'js2-mode-hook (lambda ()
   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+;; Web mode
+(require 'web-mode)
+(setq web-mode-enable-auto-closing t)
+(setq web-mode-enable-auto-pairing t)
+;; File types
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; Autoremove final white spaces on save
+(add-hook 'local-write-file-hooks
+            (lambda ()
+               (delete-trailing-whitespace)
+               nil))
+;; Turn auto indentation on
+(local-set-key (kbd "RET") 'newline-and-indent)

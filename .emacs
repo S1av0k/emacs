@@ -43,11 +43,17 @@
     (add-to-list 'initial-frame-alist '(font . "DejaVu Sans Mono-10"))
     (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))))
 
+;; Packages
+;;(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
 ;; Melpa
+
+;;                     ("marmalade" . "http://marmalade-repo.org/packages/")
+;;                     ("melpa" . "http://melpa.org/packages/")))
 (when (>= emacs-major-version 24)
   (require 'package)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  (package-initialize))
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;;  (package-refresh-contents)
+)
 
 ;; My name and e-mail address
 (setq user-full-name   "Vyacheslav Beketnov")
@@ -109,47 +115,6 @@
 (setq search-highlight        t)
 (setq query-replace-highlight t)
 
-;; Linum plugin
-(require 'linum) ;; вызвать Linum
-(line-number-mode   t) ;; показать номер строки в mode-line
-(global-linum-mode  t) ;; показывать номера строк во всех буферах
-(column-number-mode t) ;; показать номер столбца в mode-line
-(setq linum-format " %d") ;; задаем формат нумерации строк
-
-;; IDO plugin
-(require 'ido)
-(ido-mode                      t)
-(icomplete-mode                t)
-(ido-everywhere                t)
-(setq ido-vitrual-buffers      t)
-(setq ido-enable-flex-matching t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(custom-enabled-themes (quote (misterioso)))
- '(package-selected-packages (quote (json-mode sr-speedbar))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;; SrSpeedbar
-(require 'sr-speedbar)
-(global-set-key (kbd "<f12>") 'sr-speedbar-toggle)
-
-; highlight parentheses when the cursor is next to them
-(require 'paren)
-(show-paren-mode t)
-
-;; Modes
-;; nXML mode
-(setq nxml-child-indent 4 nxml-attribute-indent 4)
 
 ;; Input method switching
 ;; Use russian input for commands
@@ -178,3 +143,21 @@
       (activate-input-method current))))
 
 (reverse-input-method 'russian-computer)
+
+(load-file (concat user-emacs-directory "conf/plugins.el"))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(custom-enabled-themes (quote (misterioso)))
+ '(package-selected-packages (quote (json-mode sr-speedbar))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
